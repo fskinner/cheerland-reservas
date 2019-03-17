@@ -27,6 +27,17 @@ defmodule CheerlandReservasWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    resources("/registrations", UserController, only: [:create, :new])
+
+    get("/sign-in", SessionController, :new)
+    post("/sign-in", SessionController, :create)
+  end
+
+  scope "/", CheerlandReservasWeb do
+    pipe_through(:browser_auth)
+
+    resources("/users", UserController)
+    delete("/sign-out", SessionController, :delete)
   end
 
   # Other scopes may use custom stacks.

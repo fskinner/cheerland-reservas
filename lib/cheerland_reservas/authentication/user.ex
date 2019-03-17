@@ -7,7 +7,7 @@ defmodule CheerlandReservas.Authentication.User do
     field(:encrypted_password, :string)
     field(:gender, :string)
     field(:name, :string)
-    field(:needsTransportation, :boolean, default: false)
+    field(:needs_transportation, :boolean, default: false)
     field(:reserved_at, :date)
 
     field(:password, :string, virtual: true)
@@ -43,7 +43,7 @@ defmodule CheerlandReservas.Authentication.User do
   defp put_encrypted_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(pass))
+        put_change(changeset, :encrypted_password, Bcrypt.hash_pwd_salt(pass))
 
       _ ->
         changeset

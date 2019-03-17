@@ -41,6 +41,7 @@ defmodule CheerlandReservasWeb do
 
       import CheerlandReservasWeb.ErrorHelpers
       import CheerlandReservasWeb.Gettext
+      import CheerlandReservasWeb.Helpers.Auth, only: [signed_in?: 1]
       alias CheerlandReservasWeb.Router.Helpers, as: Routes
     end
   end

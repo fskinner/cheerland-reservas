@@ -25,6 +25,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Guardian
+config :cheerland_reservas, CheerlandReservasWeb.Guardian,
+  issuer: "CheerlandReservas",
+  ttl: {30, :days},
+  allowed_drift: 2000,
+  secret_key: "WRdDC4l/sBA4TfCmLXh/An+zOHYkaMPUGAzalN7GPbyf7CLniOrr8sd6YgEoVbYv"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
