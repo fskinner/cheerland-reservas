@@ -13,7 +13,7 @@ defmodule CheerlandReservas.AuthenticationTest do
       name: "some name",
       needs_transportation: true,
       reserved_at: ~D[2010-04-17],
-      is_admin: false,
+      is_admin: false
     }
     @update_attrs %{
       email: "some updated email",
@@ -21,8 +21,8 @@ defmodule CheerlandReservas.AuthenticationTest do
       gender: "some updated gender",
       name: "some updated name",
       needs_transportation: false,
-      reserved_at: ~D[2011-05-18]
-      is_admin: false,
+      reserved_at: ~D[2011-05-18],
+      is_admin: false
     }
     @invalid_attrs %{
       email: nil,
@@ -30,8 +30,8 @@ defmodule CheerlandReservas.AuthenticationTest do
       gender: nil,
       name: nil,
       needs_transportation: nil,
-      reserved_at: nil
-      is_admin: false,
+      reserved_at: nil,
+      is_admin: false
     }
 
     def user_fixture(attrs \\ %{}) do
