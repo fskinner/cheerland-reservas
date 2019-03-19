@@ -1,14 +1,14 @@
 defmodule CheerlandReservasWeb.Guardian do
-  use Guardian, otp_app: :todo_with_auth
+  use Guardian, otp_app: :cheerland_reservas
 
-  def subject_for_token(resource, _claims) do
+  def subject_for_token(user, _claims) do
     # You can use any value for the subject of your token but
     # it should be useful in retrieving the resource later, see
     # how it being used on `resource_from_claims/1` function.
     # A unique `id` is a good subject, a non-unique email address
     # is a poor subject.
 
-    sub = to_string(resource.id)
+    sub = to_string(user.id)
     {:ok, sub}
   end
 
@@ -18,7 +18,7 @@ defmodule CheerlandReservasWeb.Guardian do
     # the resource id so here we'll rely on that to look it up.
 
     id = claims["sub"]
-    resource = CheerlandReservas.Authentication.get_user!(id)
-    {:ok, resource}
+    user = CheerlandReservas.Authentication.get_user!(id)
+    {:ok, user}
   end
 end

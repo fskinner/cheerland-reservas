@@ -4,10 +4,9 @@ defmodule CheerlandReservasWeb.SessionController do
   alias CheerlandReservas.Authentication
   alias CheerlandReservas.Authentication.User
   alias CheerlandReservasWeb.ErrorView
+  alias CheerlandReservasWeb.Guardian
 
   plug(:scrub_params, "user" when action in [:create])
-
-  action_fallback(CheerlandReservasWeb.FallbackController)
 
   def new(conn, _params) do
     render(conn, "new.html")
@@ -19,14 +18,11 @@ defmodule CheerlandReservasWeb.SessionController do
     case Bcrypt.check_pass(user, params["password"]) do
       {:ok, user} ->
         conn
-        |> put_session(:current_user_id, user.id)
-        |> put_session(:current_user_name, user.name)
+        |> signin(user)
         |> put_flash(:info, "Signed in successfully.")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.user_path(conn, :index))
 
       {:error, _} ->
-        IO.puts("FAILS")
-
         conn
         |> put_flash(:error, "username/password mismatch")
         |> render("new.html")
@@ -35,9 +31,16 @@ defmodule CheerlandReservasWeb.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> delete_session(:current_user_id)
-    # |> delete_session(:current_user_name)
+    |> signout
     |> put_flash(:info, "Signed out successfully.")
     |> redirect(to: Routes.page_path(conn, :index))
+  end
+
+  defp signin(conn, user) do
+    conn |> Guardian.Plug.sign_in(user)
+  end
+
+  defp signout(conn) do
+    Guardian.Plug.sign_out(conn)
   end
 end

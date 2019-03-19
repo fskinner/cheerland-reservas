@@ -113,4 +113,19 @@ defmodule CheerlandReservas.Authentication do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  @doc """
+  Returns {:ok, jwt, claims} for auth purposes.
+
+  Otherwise {:error, :unauthorized}
+  """
+  def authenticate(%{user: user, password: password}) do
+    case Bcrypt.checkpw(password, user.encrypted_password) do
+      true ->
+        CheerlandReservasWeb.Guardian.encode_and_sign(user)
+
+      _ ->
+        {:error, :unauthorized}
+    end
+  end
 end

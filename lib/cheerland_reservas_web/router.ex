@@ -9,12 +9,7 @@ defmodule CheerlandReservasWeb.Router do
     plug(:put_secure_browser_headers)
   end
 
-  pipeline :browser_auth do
-    plug(:accepts, ["html"])
-    plug(:fetch_session)
-    plug(:fetch_flash)
-    plug(:protect_from_forgery)
-    plug(:put_secure_browser_headers)
+  pipeline :auth do
     plug(CheerlandReservasWeb.Guardian.AuthPipeline)
     plug(CheerlandReservasWeb.CurrentUserPlug)
   end
@@ -34,9 +29,9 @@ defmodule CheerlandReservasWeb.Router do
   end
 
   scope "/", CheerlandReservasWeb do
-    pipe_through(:browser_auth)
+    pipe_through([:browser, :auth])
 
-    resources("/users", UserController)
+    resources("/users", UserController, only: [:index, :show])
     delete("/sign-out", SessionController, :delete)
   end
 

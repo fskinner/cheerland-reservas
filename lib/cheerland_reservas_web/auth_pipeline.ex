@@ -4,7 +4,7 @@ defmodule CheerlandReservasWeb.Guardian.AuthPipeline do
     module: CheerlandReservasWeb.Guardian,
     error_handler: CheerlandReservasWeb.Guardian.AuthErrorHandler
 
-  plug(Guardian.Plug.VerifyHeader)
+  plug(Guardian.Plug.VerifySession)
   plug(Guardian.Plug.EnsureAuthenticated)
 
   # check this afterwards
