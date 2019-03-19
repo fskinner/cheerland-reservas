@@ -2,6 +2,8 @@ defmodule CheerlandReservas.Authentication.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias CheerlandReservas.Reservations.Room
+
   schema "users" do
     field(:email, :string)
     field(:encrypted_password, :string)
@@ -9,6 +11,8 @@ defmodule CheerlandReservas.Authentication.User do
     field(:name, :string)
     field(:needs_transportation, :boolean, default: false)
     field(:reserved_at, :date)
+
+    belongs_to(:room, Room)
 
     field(:password, :string, virtual: true)
 

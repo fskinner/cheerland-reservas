@@ -31,8 +31,10 @@ defmodule CheerlandReservasWeb.Router do
   scope "/", CheerlandReservasWeb do
     pipe_through([:browser, :auth])
 
-    resources("/users", UserController, only: [:index, :show])
     delete("/sign-out", SessionController, :delete)
+
+    resources("/users", UserController, only: [:index, :show])
+    resources("/rooms", RoomController)
   end
 
   # Other scopes may use custom stacks.

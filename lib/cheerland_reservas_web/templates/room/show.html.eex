@@ -1,0 +1,23 @@
+<h1>Show Room</h1>
+
+<ul>
+
+  <li>
+    <strong>Label:</strong>
+    <%= @room.label %>
+  </li>
+
+  <li>
+    <strong>Beds:</strong>
+    <%= @room.beds %>
+  </li>
+
+  <li>
+    <strong>Women only:</strong>
+    <%= @room.women_only %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.room_path(@conn, :edit, @room) %></span>
+<span><%= link "Back", to: Routes.room_path(@conn, :index) %></span>
