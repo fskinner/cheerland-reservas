@@ -19,7 +19,7 @@ defmodule CheerlandReservasWeb.RoomController do
     case Reservations.create_room(room_params) do
       {:ok, room} ->
         conn
-        |> put_flash(:info, "Room created successfully.")
+        |> put_flash(:info, "Quarto criado.")
         |> redirect(to: Routes.room_path(conn, :show, room))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -44,7 +44,7 @@ defmodule CheerlandReservasWeb.RoomController do
     case Reservations.update_room(room, room_params) do
       {:ok, room} ->
         conn
-        |> put_flash(:info, "Room updated successfully.")
+        |> put_flash(:info, "Quarto atualizado.")
         |> redirect(to: Routes.room_path(conn, :show, room))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -57,7 +57,7 @@ defmodule CheerlandReservasWeb.RoomController do
     {:ok, _room} = Reservations.delete_room(room)
 
     conn
-    |> put_flash(:info, "Room deleted successfully.")
+    |> put_flash(:info, "Quarto apagado.")
     |> redirect(to: Routes.room_path(conn, :index))
   end
 end
