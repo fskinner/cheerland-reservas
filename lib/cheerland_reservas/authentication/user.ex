@@ -28,7 +28,8 @@ defmodule CheerlandReservas.Authentication.User do
       :password,
       :gender,
       :reserved_at,
-      :needs_transportation
+      :needs_transportation,
+      :room_id
     ])
     |> validate_required([
       :email,
@@ -41,6 +42,7 @@ defmodule CheerlandReservas.Authentication.User do
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6)
     |> unique_constraint(:email, message: "Email already taken")
+    |> assoc_constraint(:room)
     |> put_encrypted_password
   end
 

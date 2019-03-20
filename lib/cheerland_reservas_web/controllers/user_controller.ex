@@ -1,5 +1,6 @@
 defmodule CheerlandReservasWeb.UserController do
   use CheerlandReservasWeb, :controller
+  # use CheerlandReservasWeb.BaseController
 
   alias CheerlandReservas.Authentication
   alias CheerlandReservas.Authentication.User

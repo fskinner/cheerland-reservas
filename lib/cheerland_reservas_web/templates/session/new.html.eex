@@ -1,7 +1,7 @@
-<h1>Sign in</h1>
+<h1>Faça login para fazer sua reserva:</h1>
 <%= form_for @conn, Routes.session_path(@conn, :new), [as: :user], fn f -> %>
   <%= text_input f, :email, placeholder: "Email" %>
-  <%= password_input f, :password, placeholder: "Password" %>
+  <%= password_input f, :password, placeholder: "Senha" %>
 
-  <%= submit "Sign in" %>
+  <%= submit "Login" %>
 <% end %>

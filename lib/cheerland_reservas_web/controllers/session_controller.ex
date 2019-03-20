@@ -24,7 +24,7 @@ defmodule CheerlandReservasWeb.SessionController do
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "username/password mismatch")
+        |> put_flash(:error, "Email/Senha inválidos")
         |> render("new.html")
     end
   end
@@ -41,6 +41,6 @@ defmodule CheerlandReservasWeb.SessionController do
   end
 
   defp signout(conn) do
-    Guardian.Plug.sign_out(conn)
+    conn |> Guardian.Plug.sign_out()
   end
 end

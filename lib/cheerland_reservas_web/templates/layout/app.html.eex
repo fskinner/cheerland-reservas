@@ -13,10 +13,10 @@
         <nav role="navigation">
           <ul>
             <%= if signed_in?(@conn) do %>
-              Bem Vindo, <%= Plug.Conn.get_session(@conn, :current_user_name) %>
-              <%= link "Sign Out", to: Routes.session_path(@conn, :delete), method: :delete %>
+              Bem Vindo, <%= @current_user.name %>
+              <%= link "Sair", to: Routes.session_path(@conn, :delete), method: :delete %>
             <% else %>
-              <%= link "Sign In", to: Routes.session_path(@conn, :new) %>
+              <%= link "Entrar", to: Routes.session_path(@conn, :new) %>
             <% end %>
           </ul>
         </nav>
