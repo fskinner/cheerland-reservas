@@ -24,7 +24,7 @@ defmodule CheerlandReservas.Reservations do
   end
 
   @doc """
-  Gets a single room.
+  Gets a single room with its users.
 
   Raises `Ecto.NoResultsError` if the Room does not exist.
 
@@ -113,6 +113,18 @@ defmodule CheerlandReservas.Reservations do
     Room.changeset(room, %{})
   end
 
+  @doc """
+  Books a Room.
+
+  ## Examples
+
+      iex> book_room(1, 2)
+      {:ok}
+
+      iex> book_room(2, 2)
+      {:error, "Error message"}
+
+  """
   def book_room(id, user_id) do
     user = Authentication.get_user!(user_id)
     room = get_room!(id)
