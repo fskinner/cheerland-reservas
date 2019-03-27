@@ -85,6 +85,12 @@ defmodule CheerlandReservas.Authentication do
     |> Repo.update()
   end
 
+  def patch_update_user(%User{} = user, attrs) do
+    user
+    |> User.patch_changeset(attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a User.
 
@@ -120,7 +126,7 @@ defmodule CheerlandReservas.Authentication do
   Otherwise {:error, :unauthorized}
   """
   def authenticate(%{user: user, password: password}) do
-    case Bcrypt.checkpw(password, user.encrypted_password) do
+    case Bcrypt.check_pass(user, password) do
       true ->
         CheerlandReservasWeb.Guardian.encode_and_sign(user)
 

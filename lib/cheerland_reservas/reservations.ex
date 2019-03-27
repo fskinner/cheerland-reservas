@@ -7,6 +7,8 @@ defmodule CheerlandReservas.Reservations do
   alias CheerlandReservas.Repo
 
   alias CheerlandReservas.Reservations.Room
+  alias CheerlandReservas.Authentication.User
+  alias CheerlandReservas.Authentication
 
   @doc """
   Returns the list of rooms.
@@ -35,7 +37,16 @@ defmodule CheerlandReservas.Reservations do
       ** (Ecto.NoResultsError)
 
   """
-  def get_room!(id), do: Repo.get!(Room, id)
+  def get_room!(id) do
+    query =
+      from(
+        r in Room,
+        where: r.id == ^id,
+        left_join: u in assoc(r, :users)
+      )
+
+    Repo.one!(query) |> Repo.preload(:users)
+  end
 
   @doc """
   Creates a room.
@@ -100,5 +111,23 @@ defmodule CheerlandReservas.Reservations do
   """
   def change_room(%Room{} = room) do
     Room.changeset(room, %{})
+  end
+
+  def book_room(id, user_id) do
+    user = Authentication.get_user!(user_id)
+    room = get_room!(id)
+
+    if user.room_id != nil do
+      {:error, "You already reserved a room"}
+    else
+      if(length(room.users) == room.max_beds) do
+        {:error, "Room is full"}
+      else
+        case Authentication.patch_update_user(user, %{room_id: id}) do
+          {:ok, user} -> {:ok}
+          {:error, _} -> {:error, "Couldn't book room"}
+        end
+      end
+    end
   end
 end

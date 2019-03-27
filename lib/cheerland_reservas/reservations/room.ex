@@ -3,7 +3,7 @@ defmodule CheerlandReservas.Reservations.Room do
   import Ecto.Changeset
 
   schema "rooms" do
-    field(:beds, :integer)
+    field(:max_beds, :integer)
     field(:label, :string)
     field(:women_only, :boolean, default: false)
 
@@ -15,8 +15,8 @@ defmodule CheerlandReservas.Reservations.Room do
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:label, :beds, :women_only])
-    |> validate_required([:label, :beds, :women_only])
+    |> cast(attrs, [:label, :max_beds, :women_only])
+    |> validate_required([:label, :max_beds, :women_only])
     |> unique_constraint(:label)
   end
 end

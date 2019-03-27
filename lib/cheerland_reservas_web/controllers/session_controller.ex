@@ -2,8 +2,6 @@ defmodule CheerlandReservasWeb.SessionController do
   use CheerlandReservasWeb, :controller
 
   alias CheerlandReservas.Authentication
-  alias CheerlandReservas.Authentication.User
-  alias CheerlandReservasWeb.ErrorView
   alias CheerlandReservasWeb.Guardian
 
   plug(:scrub_params, "user" when action in [:create])

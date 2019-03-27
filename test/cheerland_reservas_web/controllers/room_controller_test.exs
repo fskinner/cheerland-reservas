@@ -3,9 +3,9 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
 
   alias CheerlandReservas.Reservations
 
-  @create_attrs %{beds: 42, label: "some label", women_only: true}
-  @update_attrs %{beds: 43, label: "some updated label", women_only: false}
-  @invalid_attrs %{beds: nil, label: nil, women_only: nil}
+  @create_attrs %{max_beds: 42, label: "some label", women_only: true}
+  @update_attrs %{max_beds: 43, label: "some updated label", women_only: false}
+  @invalid_attrs %{max_beds: nil, label: nil, women_only: nil}
 
   def fixture(:room) do
     {:ok, room} = Reservations.create_room(@create_attrs)
@@ -75,9 +75,10 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
     test "deletes chosen room", %{conn: conn, room: room} do
       conn = delete(conn, Routes.room_path(conn, :delete, room))
       assert redirected_to(conn) == Routes.room_path(conn, :index)
-      assert_error_sent 404, fn ->
+
+      assert_error_sent(404, fn ->
         get(conn, Routes.room_path(conn, :show, room))
-      end
+      end)
     end
   end
 

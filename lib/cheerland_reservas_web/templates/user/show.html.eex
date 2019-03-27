@@ -27,6 +27,11 @@
     <%= @user.needs_transportation %>
   </li>
 
+  <li>
+    <strong>Room Id:</strong>
+    <%= @user.room_id %>
+  </li>
+
 </ul>
 
 <span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>

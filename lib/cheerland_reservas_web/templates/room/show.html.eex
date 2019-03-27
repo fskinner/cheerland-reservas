@@ -8,14 +8,22 @@
   </li>
 
   <li>
-    <strong>Beds:</strong>
-    <%= @room.beds %>
+    <strong>Max Beds:</strong>
+    <%= @room.max_beds %>
   </li>
 
   <li>
     <strong>Women only:</strong>
     <%= @room.women_only %>
   </li>
+
+  <h3> Reservas </h3>
+  <%= for user <- @room.users do %>
+    <p><%= user.name %></p>
+  <% end %>
+  <%= if @current_user.room_id == nil do %>
+    <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), method: :patch, data: [confirm: "Are you sure?"] %>
+  <%= end %>
 
 </ul>
 

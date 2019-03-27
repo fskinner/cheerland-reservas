@@ -9,9 +9,9 @@
   <%= text_input f, :label %>
   <%= error_tag f, :label %>
 
-  <%= label f, :beds %>
-  <%= number_input f, :beds %>
-  <%= error_tag f, :beds %>
+  <%= label f, :max_beds %>
+  <%= number_input f, :max_beds %>
+  <%= error_tag f, :max_beds %>
 
   <%= label f, :women_only %>
   <%= checkbox f, :women_only %>

@@ -46,6 +46,17 @@ defmodule CheerlandReservas.Authentication.User do
     |> put_encrypted_password
   end
 
+  @doc false
+  def patch_changeset(user, attrs) do
+    user
+    |> cast(attrs, [
+      :reserved_at,
+      :needs_transportation,
+      :room_id
+    ])
+    |> assoc_constraint(:room)
+  end
+
   defp put_encrypted_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->

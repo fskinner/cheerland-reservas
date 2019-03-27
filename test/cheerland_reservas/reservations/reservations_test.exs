@@ -6,9 +6,9 @@ defmodule CheerlandReservas.ReservationsTest do
   describe "rooms" do
     alias CheerlandReservas.Reservations.Room
 
-    @valid_attrs %{beds: 42, label: "some label", women_only: true}
-    @update_attrs %{beds: 43, label: "some updated label", women_only: false}
-    @invalid_attrs %{beds: nil, label: nil, women_only: nil}
+    @valid_attrs %{max_beds: 42, label: "some label", women_only: true}
+    @update_attrs %{max_beds: 43, label: "some updated label", women_only: false}
+    @invalid_attrs %{max_beds: nil, label: nil, women_only: nil}
 
     def room_fixture(attrs \\ %{}) do
       {:ok, room} =
@@ -31,7 +31,7 @@ defmodule CheerlandReservas.ReservationsTest do
 
     test "create_room/1 with valid data creates a room" do
       assert {:ok, %Room{} = room} = Reservations.create_room(@valid_attrs)
-      assert room.beds == 42
+      assert room.max_beds == 42
       assert room.label == "some label"
       assert room.women_only == true
     end
@@ -43,7 +43,7 @@ defmodule CheerlandReservas.ReservationsTest do
     test "update_room/2 with valid data updates the room" do
       room = room_fixture()
       assert {:ok, %Room{} = room} = Reservations.update_room(room, @update_attrs)
-      assert room.beds == 43
+      assert room.max_beds == 43
       assert room.label == "some updated label"
       assert room.women_only == false
     end

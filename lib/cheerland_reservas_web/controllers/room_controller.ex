@@ -60,4 +60,18 @@ defmodule CheerlandReservasWeb.RoomController do
     |> put_flash(:info, "Quarto apagado.")
     |> redirect(to: Routes.room_path(conn, :index))
   end
+
+  def book(conn, %{"id" => id}, current_user) do
+    case Reservations.book_room(id, current_user.id) do
+      {:ok} ->
+        conn
+        |> put_flash(:info, "Quarto reservado!")
+        |> redirect(to: Routes.room_path(conn, :show, id))
+
+      {:error, message} ->
+        conn
+        |> put_flash(:error, message)
+        |> redirect(to: Routes.room_path(conn, :show, id))
+    end
+  end
 end

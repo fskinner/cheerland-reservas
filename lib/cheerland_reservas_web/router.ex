@@ -35,6 +35,7 @@ defmodule CheerlandReservasWeb.Router do
 
     resources("/users", UserController, only: [:index, :show])
     resources("/rooms", RoomController)
+    patch("/book/:id", RoomController, :book)
   end
 
   # Other scopes may use custom stacks.

@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Label</th>
-      <th>Beds</th>
+      <th>Max Beds</th>
       <th>Women only</th>
 
       <th></th>
@@ -14,7 +14,7 @@
 <%= for room <- @rooms do %>
     <tr>
       <td><%= room.label %></td>
-      <td><%= room.beds %></td>
+      <td><%= room.max_beds %></td>
       <td><%= room.women_only %></td>
 
       <td>
