@@ -38,14 +38,7 @@ defmodule CheerlandReservas.Reservations do
 
   """
   def get_room!(id) do
-    query =
-      from(
-        r in Room,
-        where: r.id == ^id,
-        left_join: u in assoc(r, :users)
-      )
-
-    Repo.one!(query) |> Repo.preload(:users)
+    Repo.get!(Room, id) |> Repo.preload(:users)
   end
 
   @doc """
@@ -113,6 +106,21 @@ defmodule CheerlandReservas.Reservations do
     Room.changeset(room, %{})
   end
 
+  defp check_user_reservation(room_id) when is_nil(room_id), do: {:ok}
+  defp check_user_reservation(_), do: {:error, "You already reserved a room"}
+
+  defp check_room_availability(room) do
+    cond do
+      length(room.users) == room.max_beds -> {:error, "Room is full"}
+      length(room.users) < room.max_beds -> {:ok}
+    end
+  end
+
+  defp handle_error({:error, payload}) when is_bitstring(payload), do: {:error, payload}
+
+  defp handle_error({:error, payload}) when not is_bitstring(payload),
+    do: {:error, "Couldn't book room"}
+
   @doc """
   Books a Room.
 
@@ -129,17 +137,12 @@ defmodule CheerlandReservas.Reservations do
     user = Authentication.get_user!(user_id)
     room = get_room!(id)
 
-    if user.room_id != nil do
-      {:error, "You already reserved a room"}
+    with {:ok} <- check_user_reservation(user.room_id),
+         {:ok} <- check_room_availability(room),
+         {:ok, _} <- Authentication.patch_update_user(user, %{room_id: id}) do
+      {:ok}
     else
-      if(length(room.users) == room.max_beds) do
-        {:error, "Room is full"}
-      else
-        case Authentication.patch_update_user(user, %{room_id: id}) do
-          {:ok, user} -> {:ok}
-          {:error, _} -> {:error, "Couldn't book room"}
-        end
-      end
+      {:error, payload} -> handle_error({:error, payload})
     end
   end
 end
