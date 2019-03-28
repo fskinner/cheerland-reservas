@@ -3,11 +3,11 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Nome</th>
       <th>Email</th>
-      <th>Gender</th>
-      <th>Reserved at</th>
-      <th>Needs Transportation</th>
+      <th>Sexo</th>
+      <th>Reservou?</th>
+      <th>Onibus?</th>
 
       <th></th>
     </tr>
@@ -17,16 +17,16 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= user.gender %></td>
-      <td><%= user.reserved_at %></td>
-      <td><%= user.needs_transportation %></td>
+      <td><%= if user.gender == "F", do: "Feminino", else: "Masculino" %></td>
+      <td><%= if is_nil(user.room_id), do: "Não", else: "Sim" %></td>
+      <td><%= unless user.needs_transportation, do: "Não", else: "Sim" %></td>
 
       <td>
-        <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
+        <%= link "Visualizar", to: Routes.user_path(@conn, :show, user) %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>
+<span><%= link "Novo Usuário", to: Routes.user_path(@conn, :new) %></span>

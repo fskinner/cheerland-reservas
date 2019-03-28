@@ -1,31 +1,44 @@
-<h1>Show Room</h1>
-
-<ul>
-
-  <li>
-    <strong>Label:</strong>
-    <%= @room.label %>
-  </li>
-
-  <li>
-    <strong>Max Beds:</strong>
+<h2><%= @room.label %></h2>
+<hr>
+  <div>
+    <strong>Qtd de Camas:</strong>
     <%= @room.max_beds %>
-  </li>
+  </div>
 
-  <li>
-    <strong>Women only:</strong>
-    <%= @room.women_only %>
-  </li>
+  <div>
+    <strong>Camas disponíveis:</strong>
+    <%= @room.max_beds - length(@room.users) %>
+  </div>
 
-  <h3> Reservas </h3>
+  <div>
+    <strong>Tipo:</strong>
+    <%= if @room.women_only, do: "Feminino", else: "Misto" %>
+  </div>
+
+<br/>
+<br/>
+<h2> Reservas do Quarto</h2>
+<hr>
+<%= if length(@room.users) == 0 do %>
+  <span>Nenhuma reserva ainda</span>
+<% end %>
+<ul>
   <%= for user <- @room.users do %>
-    <p><%= user.name %></p>
+    <li><%= user.name %></li>
   <% end %>
-  <%= if @current_user.room_id == nil do %>
-    <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), method: :patch, data: [confirm: "Are you sure?"] %>
-  <%= end %>
-
 </ul>
 
-<span><%= link "Edit", to: Routes.room_path(@conn, :edit, @room) %></span>
-<span><%= link "Back", to: Routes.room_path(@conn, :index) %></span>
+<%= if @current_user.room_id == nil && @room.max_beds > length(@room.users) do %>
+  <%= if @room.women_only && @current_user.gender == "F" || @room.women_only == false do %>
+    <div>
+      <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), method: :patch, data: [confirm: "Are you sure?"] %>
+    </div>
+  <%= end %>
+<%= end %>  
+
+<br/>
+<br/>
+<div>
+  <span><%= link "Editar", to: Routes.room_path(@conn, :edit, @room) %></span>
+  <span><%= link "Voltar", to: Routes.room_path(@conn, :index) %></span>
+</div>

@@ -1,4 +1,4 @@
-<h1>Show User</h1>
+<h2><%= @user.name %></h2>
 
 <ul>
 
@@ -8,30 +8,20 @@
   </li>
 
   <li>
-    <strong>Name:</strong>
-    <%= @user.name %>
-  </li>
-
-  <li>
-    <strong>Gender:</strong>
+    <strong>Sexo:</strong>
     <%= @user.gender %>
   </li>
 
   <li>
-    <strong>Reserved at:</strong>
-    <%= @user.reserved_at %>
+    <strong>Quarto:</strong>
+    <%= @user.room.label %>
   </li>
 
   <li>
-    <strong>Needs Transportation:</strong>
-    <%= @user.needs_transportation %>
-  </li>
-
-  <li>
-    <strong>Room Id:</strong>
-    <%= @user.room_id %>
+    <strong>Precisa de Onibus?:</strong>
+    <%= unless @user.needs_transportation, do: "Não", else: "Sim" %>
   </li>
 
 </ul>
 
-<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+<span><%= link "Voltar", to: Routes.user_path(@conn, :index) %></span>

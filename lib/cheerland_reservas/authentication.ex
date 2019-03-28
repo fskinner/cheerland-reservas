@@ -35,7 +35,7 @@ defmodule CheerlandReservas.Authentication do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:room)
 
   @doc """
   Gets a single user by its email.

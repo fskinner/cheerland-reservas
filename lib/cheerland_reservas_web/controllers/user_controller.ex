@@ -26,7 +26,7 @@ defmodule CheerlandReservasWeb.UserController do
     case Authentication.create_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User criado.")
+        |> put_flash(:info, "Usuário criado.")
         |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->

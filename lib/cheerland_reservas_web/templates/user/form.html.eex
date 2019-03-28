@@ -5,31 +5,27 @@
     </div>
   <% end %>
 
-  <%= label f, :email %>
+  <%= label f, "Email" %>
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= label f, :name %>
+  <%= label f, "Nome completo" %>
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
 
-  <%= label f, :password %>
+  <%= label f, "Senha" %>
   <%= password_input f, :password %>
   <%= error_tag f, :password %>
 
-  <%= label f, :gender %>
-  <%= text_input f, :gender %>
+  <%= label f, "Sexo" %>
+  <%= select(f, :gender, ["Masculino": "M", "Feminino": "F"]) %>
   <%= error_tag f, :gender %>
 
-  <%= label f, :reserved_at %>
-  <%= date_select f, :reserved_at %>
-  <%= error_tag f, :reserved_at %>
-
-  <%= label f, :needs_transportation %>
+  <%= label f, "Precisa de onibus?" %>
   <%= checkbox f, :needs_transportation %>
   <%= error_tag f, :needs_transportation %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Salvar" %>
   </div>
 <% end %>

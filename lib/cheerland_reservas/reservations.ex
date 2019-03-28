@@ -20,7 +20,7 @@ defmodule CheerlandReservas.Reservations do
 
   """
   def list_rooms do
-    Repo.all(Room)
+    Repo.all(Room) |> Repo.preload(:users)
   end
 
   @doc """

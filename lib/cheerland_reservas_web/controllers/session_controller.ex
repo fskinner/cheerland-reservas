@@ -17,7 +17,7 @@ defmodule CheerlandReservasWeb.SessionController do
       {:ok, user} ->
         conn
         |> signin(user)
-        |> put_flash(:info, "Entrou com sucesso.")
+        |> put_flash(:info, "Login com sucesso.")
         |> redirect(to: Routes.user_path(conn, :index))
 
       {:error, _} ->
@@ -30,7 +30,7 @@ defmodule CheerlandReservasWeb.SessionController do
   def delete(conn, _params) do
     conn
     |> signout
-    |> put_flash(:info, "Saiu com sucesso..")
+    |> put_flash(:info, "Logout com sucesso..")
     |> redirect(to: Routes.page_path(conn, :index))
   end
 

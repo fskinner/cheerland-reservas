@@ -3,9 +3,10 @@
 <table>
   <thead>
     <tr>
-      <th>Label</th>
-      <th>Max Beds</th>
-      <th>Women only</th>
+      <th>Quarto</th>
+      <th>Camas Disponíveis</th>
+      <th>Qtd Camas</th>
+      <th>Tipo</th>
 
       <th></th>
     </tr>
@@ -14,17 +15,20 @@
 <%= for room <- @rooms do %>
     <tr>
       <td><%= room.label %></td>
+      <td><%= room.max_beds - length(room.users) %></td>
       <td><%= room.max_beds %></td>
-      <td><%= room.women_only %></td>
+      <td><%= if room.women_only, do: "Feminino", else: "Misto" %></td>
 
       <td>
-        <%= link "Show", to: Routes.room_path(@conn, :show, room) %>
-        <%= link "Edit", to: Routes.room_path(@conn, :edit, room) %>
-        <%= link "Delete", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= if @current_user.room_id == room.id || is_nil(@current_user.room_id) do %>
+          <%= link "Visualizar", to: Routes.room_path(@conn, :show, room) %>
+        <%= end %>
+        <%= link "Editar", to: Routes.room_path(@conn, :edit, room) %>
+        <%= link "Deletar", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Room", to: Routes.room_path(@conn, :new) %></span>
+<span><%= link "Novo Quarto", to: Routes.room_path(@conn, :new) %></span>

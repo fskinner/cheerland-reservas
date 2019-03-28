@@ -5,19 +5,19 @@
     </div>
   <% end %>
 
-  <%= label f, :label %>
+  <%= label f, "Nome do Quarto" %>
   <%= text_input f, :label %>
   <%= error_tag f, :label %>
 
-  <%= label f, :max_beds %>
+  <%= label f, "Quantidade de cama" %>
   <%= number_input f, :max_beds %>
   <%= error_tag f, :max_beds %>
 
-  <%= label f, :women_only %>
+  <%= label f, "Exclusivo para mulheres?" %>
   <%= checkbox f, :women_only %>
   <%= error_tag f, :women_only %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Salvar" %>
   </div>
 <% end %>

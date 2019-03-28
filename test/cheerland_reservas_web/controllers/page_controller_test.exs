@@ -3,6 +3,6 @@ defmodule CheerlandReservasWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Cheerland Reservas!"
+    assert html_response(conn, 200) =~ "Bem vindo ao Cheerland Reservas!"
   end
 end
