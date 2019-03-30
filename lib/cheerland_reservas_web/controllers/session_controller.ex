@@ -18,7 +18,7 @@ defmodule CheerlandReservasWeb.SessionController do
         conn
         |> signin(user)
         |> put_flash(:info, "Login com sucesso.")
-        |> redirect(to: Routes.user_path(conn, :index))
+        |> redirect(to: Routes.room_path(conn, :index))
 
       {:error, _} ->
         conn

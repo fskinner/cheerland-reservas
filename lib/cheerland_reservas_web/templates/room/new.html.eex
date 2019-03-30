@@ -1,4 +1,4 @@
-<h1>Novo Room</h1>
+<h1>Novo Quarto</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.room_path(@conn, :create)) %>
 
