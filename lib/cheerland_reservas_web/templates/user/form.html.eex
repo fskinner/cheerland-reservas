@@ -25,6 +25,10 @@
   <%= checkbox f, :needs_transportation %>
   <%= error_tag f, :needs_transportation %>
 
+  <%= label f, "Admin?" %>
+  <%= checkbox f, :is_admin %>
+  <%= error_tag f, :is_admin %>
+
   <div>
     <%= submit "Salvar" %>
   </div>

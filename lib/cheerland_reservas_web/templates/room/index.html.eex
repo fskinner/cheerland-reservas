@@ -4,8 +4,7 @@
   <thead>
     <tr>
       <th>Quarto</th>
-      <th>Camas Disponíveis</th>
-      <th>Qtd Camas</th>
+      <th>Disponibilidade</th>
       <th>Tipo</th>
 
       <th></th>
@@ -13,19 +12,24 @@
   </thead>
   <tbody>
 <%= for room <- @rooms do %>
-    <%= if room.women_only && @current_user.gender == "F" || !room.women_only do %>
+    <%= if room.women_only && @current_user.gender == "F" || !room.women_only || @current_user.is_admin do %>
       <tr>
         <td><%= room.label %></td>
-        <td><%= room.max_beds - length(room.users) %></td>
-        <td><%= room.max_beds %></td>
+        <%= if room.max_beds == length(room.users) do %>
+          <td>-</td>
+        <%= else %>
+          <td><%= room.max_beds - length(room.users) %>/<%= room.max_beds %></td>
+        <%= end %>
         <td><%= if room.women_only, do: "Feminino", else: "Misto" %></td>
 
         <td>
-          <%= if @current_user.room_id == room.id || is_nil(@current_user.room_id) do %>
-            <%= link "Visualizar", to: Routes.room_path(@conn, :show, room) %>
+          <%= if @current_user.room_id == room.id || is_nil(@current_user.room_id) || @current_user.is_admin do %>
+            <%= link "Visualizar", to: Routes.room_path(@conn, :show, room), class: "button" %>
           <%= end %>
-          <%= link "Editar", to: Routes.room_path(@conn, :edit, room) %>
-          <%= link "Deletar", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
+          <%= if @current_user.is_admin do %>
+            <%= link "Editar", to: Routes.room_path(@conn, :edit, room) %>
+            <%= link "Deletar", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
+          <%= end %>
         </td>
       </tr>
     <% end %>
@@ -33,4 +37,6 @@
   </tbody>
 </table>
 
-<span><%= link "Novo Quarto", to: Routes.room_path(@conn, :new) %></span>
+<%= if @current_user.is_admin do %>
+  <span><%= link "Novo Quarto", to: Routes.room_path(@conn, :new), class: "button" %></span>
+<%= end %>

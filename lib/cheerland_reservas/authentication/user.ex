@@ -10,6 +10,7 @@ defmodule CheerlandReservas.Authentication.User do
     field(:gender, :string)
     field(:name, :string)
     field(:needs_transportation, :boolean, default: false)
+    field(:is_admin, :boolean, default: false)
     field(:reserved_at, :date)
 
     belongs_to(:room, Room)
@@ -29,7 +30,8 @@ defmodule CheerlandReservas.Authentication.User do
       :gender,
       :reserved_at,
       :needs_transportation,
-      :room_id
+      :room_id,
+      :is_admin
     ])
     |> validate_required([
       :email,

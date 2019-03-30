@@ -28,5 +28,6 @@
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "Novo Usuário", to: Routes.user_path(@conn, :new) %></span>
+<%= if @current_user.is_admin do %>
+  <span><%= link "Novo Usuário", to: Routes.user_path(@conn, :new), class: "button" %></span>
+<%= end %>
