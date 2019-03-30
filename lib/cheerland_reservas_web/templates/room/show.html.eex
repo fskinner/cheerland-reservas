@@ -31,7 +31,7 @@
 <%= if @current_user.room_id == nil && @room.max_beds > length(@room.users) do %>
   <%= if @room.women_only && @current_user.gender == "F" || !@room.women_only do %>
     <div>
-      <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), class: "button", method: :patch, data: [confirm: "Are you sure?"] %>
+      <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), class: "button", method: :patch, data: [confirm: "Tem certeza? Depois de reservar não será possível mudar sua opção"] %>
     </div>
   <%= end %>
 <%= end %>  
