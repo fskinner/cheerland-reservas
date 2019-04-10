@@ -10,11 +10,11 @@
   <%= error_tag f, :needs_transportation %>
 
   <%= label f, "Local de saída" %>
-  <%= select(f, :departure_location, ["Aeroporto": "Aeroporto", "General Osório": "General Osório"]) %>
+  <%= select(f, :departure_location, ["Aeroporto Santos Dumont": "Aeroporto Santos Dumont", "Praça General Osório (Ipanema)": "Praça General Osório (Ipanema)", "Niterói, posto Shell ao lado da Igreja Porciúncula": "Niterói, posto Shell ao lado da Igreja Porciúncula"]) %>
   <%= error_tag f, :departure_location %>
 
   <%= label f, "Horário de partida" %>
-  <%= select(f, :departure_time, ["17h00": "17h00", "19h00": "19h00"]) %>
+  <%= select(f, :departure_time, ["18h00": "18h00", "Outro": "Outro"]) %>
   <%= error_tag f, :departure_time %>
 
   <div>
