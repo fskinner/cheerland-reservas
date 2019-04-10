@@ -12,7 +12,7 @@ defmodule CheerlandReservas.Authentication.User do
     field(:needs_transportation, :boolean, default: false)
     field(:departure_location, :string)
     field(:departure_time, :string)
-
+    field(:return_time, :string)
     field(:is_admin, :boolean, default: false)
     field(:reserved_at, :date)
 
@@ -59,6 +59,7 @@ defmodule CheerlandReservas.Authentication.User do
       :needs_transportation,
       :departure_location,
       :departure_time,
+      :return_time,
       :room_id
     ])
     |> assoc_constraint(:room)

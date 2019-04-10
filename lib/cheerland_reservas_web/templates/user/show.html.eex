@@ -31,8 +31,13 @@
   </li>
 
   <li>
-    <strong>Horário:</strong>
+    <strong>Horário de Ida:</strong>
     <%= @user.departure_time %>
+  </li>
+
+  <li>
+    <strong>Horário de Retorno:</strong>
+    <%= @user.return_time %>
   </li>
 </ul>
 

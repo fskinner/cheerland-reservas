@@ -14,8 +14,12 @@
   <%= error_tag f, :departure_location %>
 
   <%= label f, "Horário de partida" %>
-  <%= select(f, :departure_time, ["18h00": "18h00", "Outro": "Outro"]) %>
+  <%= select(f, :departure_time, ["18h00": "18h00", "18h30": "18h30"]) %>
   <%= error_tag f, :departure_time %>
+
+  <%= label f, "Horário de retorno" %>
+  <%= select(f, :return_time, ["13h30": "13h30", "19h00": "19h00"]) %>
+  <%= error_tag f, :return_time %>
 
   <div>
     <%= submit "Salvar" %>

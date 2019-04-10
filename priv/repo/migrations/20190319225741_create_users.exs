@@ -11,6 +11,7 @@ defmodule CheerlandReservas.Repo.Migrations.CreateUsers do
       add(:needs_transportation, :boolean, default: false, null: false)
       add(:departure_location, :string)
       add(:departure_time, :string)
+      add(:return_time, :string)
       add(:is_admin, :boolean, default: false, null: false)
       add(:room_id, references(:rooms, on_delete: :nothing))
 
