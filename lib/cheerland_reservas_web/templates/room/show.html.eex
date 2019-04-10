@@ -33,12 +33,14 @@
     <div>
       <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), class: "button", method: :patch, data: [confirm: "Tem certeza? Depois de reservar não será possível mudar sua opção"] %>
     </div>
-  <%= end %>
-<%= end %>  
+  <% end %>
+<% end %>  
 
 <br/>
 <br/>
 <div>
-  <span><%= link "Editar", to: Routes.room_path(@conn, :edit, @room) %></span>
+  <%= if @current_user.is_admin do %>
+    <span><%= link "Editar", to: Routes.room_path(@conn, :edit, @room) %></span>
+  <% end %>
   <span><%= link "Voltar", to: Routes.room_path(@conn, :index) %></span>
 </div>

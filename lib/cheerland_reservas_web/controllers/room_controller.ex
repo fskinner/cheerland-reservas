@@ -66,7 +66,8 @@ defmodule CheerlandReservasWeb.RoomController do
       {:ok} ->
         conn
         |> put_flash(:info, "Quarto reservado!")
-        |> redirect(to: Routes.room_path(conn, :show, id))
+        # |> redirect(to: Routes.room_path(conn, :show, id))
+        |> redirect(to: Routes.user_path(conn, :edit, current_user))
 
       {:error, message} ->
         conn

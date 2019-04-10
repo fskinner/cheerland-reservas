@@ -17,19 +17,19 @@
         <td><%= room.label %></td>
         <%= if room.max_beds == length(room.users) do %>
           <td>-</td>
-        <%= else %>
+        <% else %>
           <td><%= room.max_beds - length(room.users) %>/<%= room.max_beds %></td>
-        <%= end %>
+        <% end %>
         <td><%= if room.women_only, do: "Feminino", else: "Misto" %></td>
 
         <td>
           <%= if @current_user.room_id == room.id || is_nil(@current_user.room_id) || @current_user.is_admin do %>
             <%= link "Visualizar", to: Routes.room_path(@conn, :show, room), class: "button" %>
-          <%= end %>
+          <% end %>
           <%= if @current_user.is_admin do %>
             <%= link "Editar", to: Routes.room_path(@conn, :edit, room) %>
             <%= link "Deletar", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
-          <%= end %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -39,4 +39,4 @@
 
 <%= if @current_user.is_admin do %>
   <span><%= link "Novo Quarto", to: Routes.room_path(@conn, :new), class: "button" %></span>
-<%= end %>
+<% end %>

@@ -10,6 +10,9 @@ defmodule CheerlandReservas.Authentication.User do
     field(:gender, :string)
     field(:name, :string)
     field(:needs_transportation, :boolean, default: false)
+    field(:departure_location, :string)
+    field(:departure_time, :string)
+
     field(:is_admin, :boolean, default: false)
     field(:reserved_at, :date)
 
@@ -54,6 +57,8 @@ defmodule CheerlandReservas.Authentication.User do
     |> cast(attrs, [
       :reserved_at,
       :needs_transportation,
+      :departure_location,
+      :departure_time,
       :room_id
     ])
     |> assoc_constraint(:room)

@@ -24,13 +24,33 @@ defmodule CheerlandReservasWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     case Authentication.create_user(user_params) do
-      {:ok, user} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Usuário criado.")
         |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+    end
+  end
+
+  def edit(conn, %{"id" => id}) do
+    user = Authentication.get_user!(id)
+    changeset = Authentication.change_user(user)
+    render(conn, "edit.html", user: user, changeset: changeset)
+  end
+
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    user = Authentication.get_user!(id)
+
+    case Authentication.patch_update_user(user, user_params) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Informações de transporte salvas!")
+        |> redirect(to: Routes.user_path(conn, :show, user))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
 end

@@ -1,0 +1,23 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, "Precisa de onibus?" %>
+  <%= checkbox f, :needs_transportation %>
+  <%= error_tag f, :needs_transportation %>
+
+  <%= label f, "Local de saída" %>
+  <%= select(f, :departure_location, ["Aeroporto": "Aeroporto", "General Osório": "General Osório"]) %>
+  <%= error_tag f, :departure_location %>
+
+  <%= label f, "Horário de partida" %>
+  <%= select(f, :departure_time, ["17h00": "17h00", "19h00": "19h00"]) %>
+  <%= error_tag f, :departure_time %>
+
+  <div>
+    <%= submit "Salvar" %>
+  </div>
+<% end %>

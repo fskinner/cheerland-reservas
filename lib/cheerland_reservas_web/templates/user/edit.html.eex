@@ -1,5 +1,5 @@
 <h1>Editar Usuário</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>
+<%= render "edit_form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>
 
 <span><%= link "Voltar", to: Routes.user_path(@conn, :index) %></span>

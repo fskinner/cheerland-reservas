@@ -17,10 +17,9 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= if user.gender == "F", do: "Feminino", else: "Masculino" %></td>
+      <td><%= user.gender %></td>
       <td><%= if is_nil(user.room_id), do: "Não", else: "Sim" %></td>
       <td><%= unless user.needs_transportation, do: "Não", else: "Sim" %></td>
-
       <td>
         <%= link "Visualizar", to: Routes.user_path(@conn, :show, user) %>
       </td>
@@ -30,4 +29,4 @@
 </table>
 <%= if @current_user.is_admin do %>
   <span><%= link "Novo Usuário", to: Routes.user_path(@conn, :new), class: "button" %></span>
-<%= end %>
+<% end %>

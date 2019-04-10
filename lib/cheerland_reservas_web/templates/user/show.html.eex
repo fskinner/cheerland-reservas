@@ -16,12 +16,26 @@
     <strong>Quarto:</strong>
     <%= @user.room.label %>
   </li>
+</ul>
 
+<h3>Transporte</h3>
+<ul>
   <li>
-    <strong>Precisa de Onibus?:</strong>
+    <strong>Precisa de Onibus?</strong>
     <%= unless @user.needs_transportation, do: "Não", else: "Sim" %>
   </li>
 
+  <li>
+    <strong>Local de saída:</strong>
+    <%= @user.departure_location %>
+  </li>
+
+  <li>
+    <strong>Horário:</strong>
+    <%= @user.departure_time %>
+  </li>
 </ul>
+
+
 
 <span><%= link "Voltar", to: Routes.user_path(@conn, :index) %></span>
