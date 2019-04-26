@@ -18,28 +18,31 @@
   </li>
 </ul>
 
-<h3>Transporte</h3>
-<ul>
-  <li>
-    <strong>Precisa de Onibus?</strong>
-    <%= unless @user.needs_transportation, do: "Não", else: "Sim" %>
-  </li>
+<%= if @user.needs_transportation do %>
+  <h3>Transporte</h3>
+  <ul>
+    <li>
+      <strong>Local de saída:</strong>
+      <%= @user.departure_location %>
+    </li>
 
-  <li>
-    <strong>Local de saída:</strong>
-    <%= @user.departure_location %>
-  </li>
+    <li>
+      <strong>Horário de Ida:</strong>
+      18h00
+    </li>
 
-  <li>
-    <strong>Horário de Ida:</strong>
-    <%= @user.departure_time %>
-  </li>
+    <li>
+      <strong>Sugestão de Horário:</strong>
+      <%= @user.departure_time %>    
+    </li>
 
-  <li>
-    <strong>Horário de Retorno:</strong>
-    <%= @user.return_time %>
-  </li>
-</ul>
+
+    <li>
+      <strong>Horário de Retorno:</strong>
+      <%= @user.return_time %>
+    </li>
+  </ul>
+<% end %>
 
 
 
