@@ -1,5 +1,6 @@
-<h1>Editar Quarto</h1>
+<%= if @current_user.is_admin do %>
+  <h1>Editar Quarto</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.room_path(@conn, :update, @room)) %>
-
+  <%= render "form.html", Map.put(assigns, :action, Routes.room_path(@conn, :update, @room)) %>
+<% end %>
 <span><%= link "Voltar", to: Routes.room_path(@conn, :index) %></span>
