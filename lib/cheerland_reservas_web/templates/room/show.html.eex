@@ -48,5 +48,7 @@
   <%= if @current_user.is_admin do %>
     <span><%= link "Editar", to: Routes.room_path(@conn, :edit, @room) %></span>
   <% end %>
-  <span><%= link "Voltar", to: Routes.room_path(@conn, :index) %></span>
+  <%= if @current_user.is_admin || @current_user.room_id == nil do %>
+    <span><%= link "Voltar", to: Routes.room_path(@conn, :index) %></span>
+  <% end %>
 </div>

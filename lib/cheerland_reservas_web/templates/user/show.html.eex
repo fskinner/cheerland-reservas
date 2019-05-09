@@ -11,11 +11,19 @@
     <strong>Sexo:</strong>
     <%= @user.gender %>
   </li>
-
+  
   <li>
     <strong>Quarto:</strong>
-    <%= @user.room.label %>
+    <%= if @user.room_id !== nil do %>
+      <%= @user.room.label %>
+    <% else %>
+      Ainda não reservado
+    <% end %>
   </li>
+
+  <%= if @user.room_id !== nil do %>
+    <span><%= link "Visualizar quarto reservado", to: Routes.room_path(@conn, :show, @user.room_id) %></span>
+  <% end %>
 </ul>
 
 <%= if @user.needs_transportation do %>
@@ -42,8 +50,7 @@
       <%= @user.return_time %>
     </li>
   </ul>
+
+<span><%= link "Alterar dados de transporte", to: Routes.user_path(@conn, :edit, @user) %></span>
 <% end %>
 
-
-
-<span><%= link "Voltar", to: Routes.user_path(@conn, :index) %></span>

@@ -11,20 +11,25 @@
     <header>
       <section class="container">
         <nav role="navigation">
-          <ul>
-            <%= if signed_in?(@conn) do %>
-              <li><%= link "Sair", to: Routes.session_path(@conn, :delete), method: :delete %></li>
-            <% end %>
-          </ul>
+          <%= if signed_in?(@conn) do %>
+            <ul>
+                <li><%= link "Sair", to: Routes.session_path(@conn, :delete), method: :delete %></li>
+            </ul>
+          <% end %>
           <ul>
             <%= if signed_in?(@conn) && @current_user.room_id != nil do %>
               <li><%= link "Minha Reserva", to: Routes.room_path(@conn, :show, @current_user.room_id) %></li>
+            <% else %>
+              <li><%= link "Quartos", to: Routes.room_path(@conn, :index) %></li>
             <% end %>
           </ul>
-          <ul>
-            <%= if signed_in?(@conn) do %>
+          <%= if signed_in?(@conn) do %>
+            <ul>
               <li><%= link "Meus dados", to: Routes.user_path(@conn, :show, @current_user) %></li>
-            <% end %>
+            </ul>
+          <% end %>
+          <ul>
+            <li><%= link "Início", to: Routes.page_path(@conn, :index) %></li>
           </ul>
           <ul>
             <%= if signed_in?(@conn) do %>
