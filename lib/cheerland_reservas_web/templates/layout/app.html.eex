@@ -17,7 +17,7 @@
             <% end %>
           </ul>
           <ul>
-            <%= if @current_user.room_id != nil do %>
+            <%= if signed_in?(@conn) && @current_user.room_id != nil do %>
               <li><%= link "Minha Reserva", to: Routes.room_path(@conn, :show, @current_user.room_id) %></li>
             <% end %>
           </ul>
