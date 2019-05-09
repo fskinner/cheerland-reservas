@@ -13,10 +13,24 @@
         <nav role="navigation">
           <ul>
             <%= if signed_in?(@conn) do %>
-              Bem Vindo, <%= @current_user.name %>
-              <%= link "Sair", to: Routes.session_path(@conn, :delete), method: :delete %>
+              <li><%= link "Sair", to: Routes.session_path(@conn, :delete), method: :delete %></li>
+            <% end %>
+          </ul>
+          <ul>
+            <%= if @current_user.room_id != nil do %>
+              <li><%= link "Minha Reserva", to: Routes.room_path(@conn, :show, @current_user.room_id) %></li>
+            <% end %>
+          </ul>
+          <ul>
+            <%= if signed_in?(@conn) do %>
+              <li><%= link "Meus dados", to: Routes.user_path(@conn, :show, @current_user) %></li>
+            <% end %>
+          </ul>
+          <ul>
+            <%= if signed_in?(@conn) do %>
+              <li>Bem Vindo, <%= @current_user.name %></li>
             <% else %>
-              <%= link "Entrar", to: Routes.session_path(@conn, :new) %>
+              <li><%= link "Entrar", to: Routes.session_path(@conn, :new) %></li>
             <% end %>
           </ul>
         </nav>

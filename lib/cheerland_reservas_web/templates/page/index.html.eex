@@ -1,6 +1,6 @@
 <section class="phx-hero">
   <h1><%= gettext "Bem vindo ao %{name}!", name: "Cheerland Reservas" %></h1>
-  <p>O site para reservas de quarto da Cheerland<br/>reserve agora!</p>
+  <p>O site para reservas de quarto da Cheerland<br/>reserve <%= link "agora", to: Routes.room_path(@conn, :index) %>!</p>
 </section>
 
 <section class="row">
