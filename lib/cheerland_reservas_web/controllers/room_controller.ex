@@ -66,7 +66,7 @@ defmodule CheerlandReservasWeb.RoomController do
       {:ok} ->
         conn
         |> put_flash(:info, "Quarto reservado!")
-        |> next_screen(current_user)
+        |> next_screen(current_user, id)
 
       {:error, message} ->
         conn
@@ -75,11 +75,25 @@ defmodule CheerlandReservasWeb.RoomController do
     end
   end
 
-  defp next_screen(conn, current_user) do
+  def unbook(conn, _params, current_user) do
+    case Reservations.unbook_room(current_user.id) do
+      {:ok} ->
+        conn
+        |> put_flash(:info, "Reserva cancelada!")
+        |> redirect(to: Routes.room_path(conn, :index))
+
+      {:error, message} ->
+        conn
+        |> put_flash(:error, message)
+        |> redirect(to: Routes.room_path(conn, :show, current_user.room_id))
+    end
+  end
+
+  defp next_screen(conn, current_user, id) do
     if current_user.needs_transportation do
       conn |> redirect(to: Routes.user_path(conn, :edit, current_user))
     else
-      conn |> redirect(to: Routes.user_path(conn, :show, current_user))
+      conn |> redirect(to: Routes.room_path(conn, :show, id))
     end
   end
 end

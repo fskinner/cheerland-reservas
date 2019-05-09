@@ -31,9 +31,15 @@
 <%= if @current_user.room_id == nil && @room.max_beds > length(@room.users) do %>
   <%= if @room.women_only && @current_user.gender == "F" || !@room.women_only do %>
     <div>
-      <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), class: "button", method: :patch, data: [confirm: "Tem certeza? Depois de reservar não será possível mudar sua opção"] %>
+      <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), class: "button", method: :patch, data: [confirm: "Tem certeza que deseja reservar este quarto?"] %>
     </div>
   <% end %>
+<% end %> 
+
+<%= if @current_user.room_id == @room.id do %>
+  <div>
+    <%= link "Cancelar reserva", to: Routes.room_path(@conn, :unbook), class: "button", method: :patch, data: [confirm: "Tem certeza que deseja cancelar sua reserva? Você será enviado para a lista de quartos para escolher outro quarto"] %>
+  </div>
 <% end %>  
 
 <br/>

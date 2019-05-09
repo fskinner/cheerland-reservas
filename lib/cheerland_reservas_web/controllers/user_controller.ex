@@ -47,7 +47,7 @@ defmodule CheerlandReservasWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Informações de transporte salvas!")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: Routes.room_path(conn, :show, user.room_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)

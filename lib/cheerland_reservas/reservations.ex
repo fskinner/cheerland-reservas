@@ -145,4 +145,26 @@ defmodule CheerlandReservas.Reservations do
       {:error, payload} -> handle_error({:error, payload})
     end
   end
+
+  @doc """
+  Unbooks a Room.
+
+  ## Examples
+
+      iex> book_room(1)
+      {:ok}
+
+      iex> book_room(2)
+      {:error, "Error message"}
+
+  """
+  def unbook_room(user_id) do
+    user = Authentication.get_user!(user_id)
+
+    with {:ok, _} <- Authentication.patch_update_user(user, %{room_id: nil}) do
+      {:ok}
+    else
+      {:error, payload} -> handle_error({:error, payload})
+    end
+  end
 end
