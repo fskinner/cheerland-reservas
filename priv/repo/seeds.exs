@@ -9,7 +9,7 @@ CheerlandReservas.Authentication.create_user(%{
   email: "lucasavilez@gmail.com",
   name: "Lucas Avilez",
   password: "a12345A",
-  gender: "Masculino"
+  gender: "Masculino",
   is_admin: true
 })
 

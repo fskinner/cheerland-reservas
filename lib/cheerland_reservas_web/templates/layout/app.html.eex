@@ -15,6 +15,11 @@
             <ul>
                 <li><%= link "Sair", to: Routes.session_path(@conn, :delete), method: :delete %></li>
             </ul>
+            <%= if @current_user.is_admin do %>
+            <ul>
+                <li><%= link "Usuarios", to: Routes.user_path(@conn, :index) %></li>
+            </ul>
+            <% end %>
           <% end %>
           <ul>
             <%= if signed_in?(@conn) && @current_user.room_id != nil do %>
