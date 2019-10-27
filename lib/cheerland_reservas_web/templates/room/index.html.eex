@@ -8,6 +8,7 @@
       <th>Tipo</th>
 
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -24,10 +25,13 @@
 
         <td>
           <%= if @current_user.room_id == room.id || is_nil(@current_user.room_id) || @current_user.is_admin do %>
-            <%= link "Visualizar", to: Routes.room_path(@conn, :show, room), class: "button" %>
+            <%= link "Detalhes", to: Routes.room_path(@conn, :show, room), class: "button" %>
           <% end %>
+        </td>
+        <td>
           <%= if @current_user.is_admin do %>
             <%= link "Editar", to: Routes.room_path(@conn, :edit, room) %>
+            <span>|</span>
             <%= link "Deletar", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %>
           <% end %>
         </td>

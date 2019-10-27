@@ -18,7 +18,7 @@ defmodule CheerlandReservas.Authentication do
 
   """
   def list_users do
-    Repo.all(User)
+    Repo.all(User) |> Repo.preload(:room)
   end
 
   @doc """

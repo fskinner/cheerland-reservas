@@ -29,4 +29,5 @@
 </table>
 <%= if @current_user.is_admin do %>
   <span><%= link "Novo Usuário", to: Routes.user_path(@conn, :new), class: "button" %></span>
+  <span><%= link "Download", to: Routes.user_path(@conn, :csv_report), class: "button" %></span>
 <% end %>

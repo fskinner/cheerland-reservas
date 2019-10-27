@@ -34,6 +34,7 @@ defmodule CheerlandReservasWeb.Router do
     delete("/sign-out", SessionController, :delete)
 
     resources("/users", UserController, only: [:index, :show, :edit, :update])
+    get("/users-report", UserController, :csv_report)
     resources("/quartos", RoomController)
     patch("/book/:id", RoomController, :book)
     patch("/unbook", RoomController, :unbook)

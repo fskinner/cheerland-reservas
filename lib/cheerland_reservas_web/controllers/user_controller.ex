@@ -53,4 +53,43 @@ defmodule CheerlandReservasWeb.UserController do
         render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
+
+  def csv_report(conn, _params) do
+    users = Authentication.list_users()
+
+    conn
+    |> put_resp_content_type("text/csv")
+    |> put_resp_header("content-disposition", "attachment; filename=\"cheerland-reservas.csv\"")
+    |> send_resp(200, csv_content(users))
+  end
+
+  defp csv_content(users) do
+    csv_content =
+      users
+      |> parse_user
+      |> CSV.encode()
+      |> Enum.to_list()
+      |> to_string
+  end
+
+  defp parse_user(users) do
+    headers = [~w(Nome Email Sexo Transporte LocalOnibus HorarioOnibus HorarioRetorno Quarto)]
+
+    parsed_users =
+      users
+      |> Enum.map(fn x ->
+        [
+          x.name,
+          x.email,
+          x.gender,
+          "#{x.needs_transportation}",
+          x.departure_location || "-",
+          x.departure_time || "-",
+          x.return_time || "-",
+          x.room_id || "-"
+        ]
+      end)
+
+    Enum.concat(headers, parsed_users)
+  end
 end
