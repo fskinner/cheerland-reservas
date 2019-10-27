@@ -15,14 +15,14 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
   describe "index" do
     test "lists all rooms", %{conn: conn} do
       conn = get(conn, Routes.room_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Rooms"
+      assert html_response(conn, 200) =~ "Lista dos Quartos"
     end
   end
 
   describe "new room" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.room_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Room"
+      assert html_response(conn, 200) =~ "Novo Quarto"
     end
   end
 
@@ -34,12 +34,12 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
       assert redirected_to(conn) == Routes.room_path(conn, :show, id)
 
       conn = get(conn, Routes.room_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Room"
+      assert html_response(conn, 200) =~ @create_attrs.label
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.room_path(conn, :create), room: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Room"
+      assert html_response(conn, 200) =~ "Novo Quarto"
     end
   end
 
@@ -48,7 +48,7 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
 
     test "renders form for editing chosen room", %{conn: conn, room: room} do
       conn = get(conn, Routes.room_path(conn, :edit, room))
-      assert html_response(conn, 200) =~ "Edit Room"
+      assert html_response(conn, 200) =~ "Editar Quarto"
     end
   end
 
@@ -65,7 +65,7 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, room: room} do
       conn = put(conn, Routes.room_path(conn, :update, room), room: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Room"
+      assert html_response(conn, 200) =~ "Editar Quarto"
     end
   end
 
