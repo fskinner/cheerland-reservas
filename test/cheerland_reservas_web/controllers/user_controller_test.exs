@@ -1,23 +1,18 @@
 defmodule CheerlandReservasWeb.UserControllerTest do
   use CheerlandReservasWeb.ConnCase
 
+  import CheerlandReservas.Factory
+
   alias CheerlandReservas.Authentication
+  alias CheerlandReservasWeb.Guardian
 
   @create_attrs %{
-    email: "some email",
-    password: "some password",
+    email: "some@email.com",
+    password: "somepassword",
     gender: "some gender",
     name: "some name",
     needs_transportation: true,
     reserved_at: ~D[2010-04-17]
-  }
-  @update_attrs %{
-    email: "some updated email",
-    password: "some updated password",
-    gender: "some updated gender",
-    name: "some updated name",
-    needs_transportation: false,
-    reserved_at: ~D[2011-05-18]
   }
   @invalid_attrs %{
     email: nil,
@@ -33,28 +28,75 @@ defmodule CheerlandReservasWeb.UserControllerTest do
     user
   end
 
+  setup do
+    user = insert(:user)
+
+    conn =
+      build_conn()
+      |> Plug.Test.init_test_session(%{})
+      |> Guardian.Plug.sign_in(%{id: user.id, is_admin: true})
+      |> Plug.Conn.assign(:current_user, user)
+
+    {:ok, conn: conn}
+  end
+
   describe "index" do
-    test "lists all users", %{conn: conn} do
-      conn = get(conn, Routes.user_path(conn, :index))
+    test "lists all users when logged in", %{conn: conn} do
+      conn =
+        conn
+        |> get(Routes.user_path(conn, :index))
+
       assert html_response(conn, 200) =~ "Lista de Usuarios"
+    end
+
+    test "gets redirect when logged out", %{conn: conn} do
+      conn =
+        conn
+        |> Guardian.Plug.sign_out()
+        |> get(Routes.user_path(conn, :index))
+
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
     end
   end
 
-  describe "new user" do
+  describe "get" do
+    test "gets user info", %{conn: conn} do
+      user = conn.assigns[:current_user]
+
+      conn =
+        conn
+        |> get(Routes.user_path(conn, :show, user))
+
+      assert html_response(conn, 200) =~ user.name
+      assert html_response(conn, 200) =~ user.email
+    end
+
+    test "gets redirect when logged out", %{conn: conn} do
+      user = conn.assigns[:current_user]
+
+      conn =
+        conn
+        |> Guardian.Plug.sign_out()
+        |> get(Routes.user_path(conn, :show, user))
+
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
+    end
+  end
+
+  describe "new" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :new))
       assert html_response(conn, 200) =~ "Novo Usuario"
     end
   end
 
-  describe "create user" do
+  describe "create" do
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.user_path(conn, :show, id)
+      assert redirected_to(conn) == Routes.page_path(conn, :index)
 
-      conn = get(conn, Routes.user_path(conn, :show, id))
+      conn = conn |> get(Routes.user_path(conn, :index))
       assert html_response(conn, 200) =~ @create_attrs.name
     end
 
@@ -64,43 +106,53 @@ defmodule CheerlandReservasWeb.UserControllerTest do
     end
   end
 
-  describe "edit user" do
-    setup [:create_user]
+  describe "edit" do
+    test "renders form for editing chosen user", %{conn: conn} do
+      user = conn.assigns[:current_user]
 
-    test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "Informações do Check-in (Ida)"
       assert html_response(conn, 200) =~ "Informações do Check-out (Volta)"
     end
+
+    test "gets redirect when logged out", %{conn: conn} do
+      user = conn.assigns[:current_user]
+
+      conn =
+        conn
+        |> Guardian.Plug.sign_out()
+        |> get(Routes.user_path(conn, :edit, user))
+
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
+    end
   end
 
-  describe "update user" do
-    setup [:create_user]
+  describe "update" do
+    test "redirects when data is valid", %{conn: conn} do
+      user = conn.assigns[:current_user]
 
-    test "redirects when data is valid", %{conn: conn, user: user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+      conn =
+        put(conn, Routes.user_path(conn, :update, user),
+          user: %{departure_location: "New Location"}
+        )
+
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "Informações de transporte salvas!"
     end
-  end
 
-  describe "delete user" do
-    setup [:create_user]
+    test "gets redirect when logged out", %{conn: conn} do
+      user = conn.assigns[:current_user]
 
-    test "deletes chosen user", %{conn: conn, user: user} do
-      conn = delete(conn, Routes.user_path(conn, :delete, user))
-      assert redirected_to(conn) == Routes.user_path(conn, :index)
+      conn =
+        conn
+        |> Guardian.Plug.sign_out()
+        |> put(Routes.user_path(conn, :update, user),
+          user: %{departure_location: "New Location"}
+        )
 
-      assert_error_sent(404, fn ->
-        get(conn, Routes.user_path(conn, :show, user))
-      end)
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
     end
-  end
-
-  defp create_user(_) do
-    user = fixture(:user)
-    {:ok, user: user}
   end
 end

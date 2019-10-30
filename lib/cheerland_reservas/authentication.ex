@@ -65,6 +65,10 @@ defmodule CheerlandReservas.Authentication do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, user} -> {:ok, Repo.preload(user, :room)}
+      error -> error
+    end
   end
 
   @doc """
@@ -83,12 +87,22 @@ defmodule CheerlandReservas.Authentication do
     user
     |> User.changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, user} -> {:ok, Repo.preload(user, :room)}
+      error -> error
+    end
   end
 
   def patch_update_user(%User{} = user, attrs) do
     user
     |> User.patch_changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, user} -> {:ok, Repo.preload(user, :room)}
+      error -> error
+    end
+
+    # {:ok, user}
   end
 
   @doc """

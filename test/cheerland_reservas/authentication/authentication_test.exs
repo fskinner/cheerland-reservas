@@ -7,8 +7,8 @@ defmodule CheerlandReservas.AuthenticationTest do
     alias CheerlandReservas.Authentication.User
 
     @valid_attrs %{
-      email: "some email",
-      password: "some password",
+      email: "some@email.com",
+      password: "somepassword",
       gender: "some gender",
       name: "some name",
       needs_transportation: true,
@@ -16,8 +16,8 @@ defmodule CheerlandReservas.AuthenticationTest do
       is_admin: false
     }
     @update_attrs %{
-      email: "some updated email",
-      password: "some updated password",
+      email: "someupdated@email.com",
+      password: "someupdatedpassword",
       gender: "some updated gender",
       name: "some updated name",
       needs_transportation: false,
@@ -45,18 +45,21 @@ defmodule CheerlandReservas.AuthenticationTest do
 
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Authentication.list_users() == [user]
+
+      assert Authentication.list_users() ==
+               [user] |> Enum.map(fn x -> x |> Map.put(:password, nil) end)
     end
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Authentication.get_user!(user.id) == user
+      assert Authentication.get_user!(user.id) == user |> Map.put(:password, nil)
     end
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Authentication.create_user(@valid_attrs)
-      assert user.email == "some email"
-      assert user.password == "some password"
+      assert user.email == "some@email.com"
+      assert user.password == "somepassword"
+      assert user.encrypted_password != nil
       assert user.gender == "some gender"
       assert user.name == "some name"
       assert user.needs_transportation == true
@@ -70,8 +73,8 @@ defmodule CheerlandReservas.AuthenticationTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Authentication.update_user(user, @update_attrs)
-      assert user.email == "some updated email"
-      assert user.password == "some updated password"
+      assert user.email == "someupdated@email.com"
+      assert user.password == "someupdatedpassword"
       assert user.gender == "some updated gender"
       assert user.name == "some updated name"
       assert user.needs_transportation == false
@@ -81,7 +84,7 @@ defmodule CheerlandReservas.AuthenticationTest do
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
       assert {:error, %Ecto.Changeset{}} = Authentication.update_user(user, @invalid_attrs)
-      assert user == Authentication.get_user!(user.id)
+      assert Authentication.get_user!(user.id) == user |> Map.put(:password, nil)
     end
 
     test "delete_user/1 deletes the user" do

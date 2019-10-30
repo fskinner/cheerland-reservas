@@ -57,6 +57,10 @@ defmodule CheerlandReservas.Reservations do
     %Room{}
     |> Room.changeset(attrs)
     |> Repo.insert()
+    |> case do
+      {:ok, room} -> {:ok, Repo.preload(room, :users)}
+      error -> error
+    end
   end
 
   @doc """
@@ -75,6 +79,10 @@ defmodule CheerlandReservas.Reservations do
     room
     |> Room.changeset(attrs)
     |> Repo.update()
+    |> case do
+      {:ok, room} -> {:ok, Repo.preload(room, :users)}
+      error -> error
+    end
   end
 
   @doc """
