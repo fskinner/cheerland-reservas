@@ -1,7 +1,10 @@
 defmodule CheerlandReservasWeb.RoomControllerTest do
   use CheerlandReservasWeb.ConnCase
 
+  import CheerlandReservas.Factory
+
   alias CheerlandReservas.Reservations
+  alias CheerlandReservasWeb.Guardian
 
   @create_attrs %{max_beds: 42, label: "some label", women_only: true}
   @update_attrs %{max_beds: 43, label: "some updated label", women_only: false}
@@ -10,6 +13,18 @@ defmodule CheerlandReservasWeb.RoomControllerTest do
   def fixture(:room) do
     {:ok, room} = Reservations.create_room(@create_attrs)
     room
+  end
+
+  setup do
+    user = insert(:user)
+
+    conn =
+      build_conn()
+      |> Plug.Test.init_test_session(%{})
+      |> Guardian.Plug.sign_in(%{id: user.id, is_admin: true})
+      |> Plug.Conn.assign(:current_user, user)
+
+    {:ok, conn: conn}
   end
 
   describe "index" do
