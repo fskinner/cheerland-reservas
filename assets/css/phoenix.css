@@ -448,10 +448,7 @@ th {
   padding: 1.2rem 1.5rem;
   text-align: left;
 }
-td:first-child,
-th:first-child {
-  padding-left: 0;
-}
+
 td:last-child,
 th:last-child {
   padding-right: 0;

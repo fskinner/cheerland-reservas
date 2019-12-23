@@ -13,6 +13,15 @@
   <%= number_input f, :max_beds %>
   <%= error_tag f, :max_beds %>
 
+  <%= label f, "Grupo do Quarto" %>
+  <%= number_input f, :group %>
+  <%= error_tag f, :group %>
+
+  <%= label f, "Url das Fotos" %>
+  <%= text_input f, :photos_url %>
+  <%= error_tag f, :photos_url %>
+
+
   <%= label f, "Exclusivo para mulheres?" %>
   <%= checkbox f, :women_only %>
   <%= error_tag f, :women_only %>

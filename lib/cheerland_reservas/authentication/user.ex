@@ -15,6 +15,7 @@ defmodule CheerlandReservas.Authentication.User do
     field(:return_time, :string)
     field(:is_admin, :boolean, default: false)
     field(:reserved_at, :date)
+    field(:allowed_group, :integer)
 
     belongs_to(:room, Room)
 
@@ -34,14 +35,16 @@ defmodule CheerlandReservas.Authentication.User do
       :reserved_at,
       :needs_transportation,
       :room_id,
-      :is_admin
+      :is_admin,
+      :allowed_group
     ])
     |> validate_required([
       :email,
       :name,
       :password,
       :gender,
-      :needs_transportation
+      :needs_transportation,
+      :allowed_group
     ])
     |> validate_length(:email, min: 5, max: 150)
     |> validate_format(:email, ~r/@/)

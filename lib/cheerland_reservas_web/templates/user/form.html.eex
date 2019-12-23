@@ -21,6 +21,10 @@
   <%= select(f, :gender, ["Masculino": "M", "Feminino": "F"]) %>
   <%= error_tag f, :gender %>
 
+  <%= label f, "Grupo Comprado" %>
+  <%= number_input f, :allowed_group %>
+  <%= error_tag f, :allowed_group %>
+
   <%= label f, "Precisa de onibus?" %>
   <%= checkbox f, :needs_transportation %>
   <%= error_tag f, :needs_transportation %>

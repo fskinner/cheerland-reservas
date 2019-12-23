@@ -1,6 +1,11 @@
 <h2><%= @room.label %></h2>
 <hr>
   <div>
+    <strong>Grupo:</strong>
+    <%= @room.group %>
+  </div>
+
+  <div>
     <strong>Qtd de Camas:</strong>
     <%= @room.max_beds %>
   </div>
@@ -30,6 +35,7 @@
 
 <%= if @current_user.room_id == nil && @room.max_beds > length(@room.users) do %>
   <%= if @room.women_only && @current_user.gender == "F" || !@room.women_only do %>
+  <a href=<%= @room.photos_url %> target="blank" class="button button-warn">Fotos do quarto</a>
     <div>
       <%= link "Fazer reserva", to: Routes.room_path(@conn, :book, @room), class: "button", method: :patch, data: [confirm: "Tem certeza que deseja reservar este quarto?"] %>
     </div>

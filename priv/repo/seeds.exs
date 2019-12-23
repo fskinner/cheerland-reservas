@@ -10,7 +10,8 @@ CheerlandReservas.Authentication.create_user(%{
   name: "Lucas Avilez",
   password: "a12345A",
   gender: "Masculino",
-  is_admin: true
+  is_admin: true,
+  allowed_group: 1
 })
 
 CheerlandReservas.Authentication.create_user(%{
@@ -18,7 +19,8 @@ CheerlandReservas.Authentication.create_user(%{
   name: "Felipe Skinner",
   password: "a12345A",
   gender: "Masculino",
-  is_admin: true
+  is_admin: true,
+  allowed_group: 2
 })
 
 #

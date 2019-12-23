@@ -448,10 +448,7 @@ th {
   padding: 1.2rem 1.5rem;
   text-align: left;
 }
-td:first-child,
-th:first-child {
-  padding-left: 0;
-}
+
 td:last-child,
 th:last-child {
   padding-right: 0;
@@ -671,4 +668,14 @@ header nav a {
 }
 
 /* This file is for your main application css. */
+
+.lista-quartos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-warn {
+  background-color: #7b0d31c7;
+}
 

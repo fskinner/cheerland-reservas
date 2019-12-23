@@ -1,3 +1,13 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.lista-quartos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-warn {
+  background-color: #7b0d31c7;
+}

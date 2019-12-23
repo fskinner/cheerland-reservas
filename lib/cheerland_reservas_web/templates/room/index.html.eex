@@ -1,10 +1,13 @@
-<h2>Lista dos Quartos </h2>
-
+<div class="lista-quartos">
+  <h2>Lista dos Quartos </h2>
+  <a href="http://www.cheerland.com.br" target="blank">Veja aqui o mapa dos quartos</a>
+</div>
 <table>
   <thead>
     <tr>
       <th>Quarto</th>
       <th>Disponibilidade</th>
+      <th>Grupo</th>
       <th>Tipo</th>
 
       <th></th>
@@ -14,13 +17,26 @@
   <tbody>
 <%= for room <- @rooms do %>
     <%= if room.women_only && @current_user.gender == "F" || !room.women_only || @current_user.is_admin do %>
-      <tr>
+        <%= if room.group == 1 do %>
+          <tr style="background: #e6e62d61">
+        <% else %>
+          <%= if room.group == 2 do %>
+            <tr style="background: #0057ff8a">
+          <% else %>
+            <%= if room.group == 3 do %>
+              <tr style="background: #ff00007a">
+            <% else %>
+              <tr style="background: #00800087">
+            <% end %>
+          <% end %>
+        <% end %>
         <td><%= room.label %></td>
         <%= if room.max_beds == length(room.users) do %>
           <td>-</td>
         <% else %>
           <td><%= room.max_beds - length(room.users) %>/<%= room.max_beds %></td>
         <% end %>
+        <td><%= room.group %></td>
         <td><%= if room.women_only, do: "Feminino", else: "Misto" %></td>
 
         <td>

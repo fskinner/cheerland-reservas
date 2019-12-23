@@ -5,8 +5,11 @@ defmodule CheerlandReservasWeb.RoomController do
   alias CheerlandReservas.Reservations
   alias CheerlandReservas.Reservations.Room
 
-  def index(conn, _params, _current_user) do
-    rooms = Reservations.list_rooms()
+  def index(conn, _params, current_user) do
+    rooms =
+      Reservations.list_rooms()
+      |> Enum.filter(&filter_rooms(&1, current_user))
+
     render(conn, "index.html", rooms: rooms)
   end
 
@@ -94,6 +97,13 @@ defmodule CheerlandReservasWeb.RoomController do
       conn |> redirect(to: Routes.user_path(conn, :edit, current_user))
     else
       conn |> redirect(to: Routes.room_path(conn, :show, id))
+    end
+  end
+
+  defp filter_rooms(room, user) do
+    case user.is_admin do
+      true -> room
+      false -> if room.group == user.allowed_group, do: room, else: nil
     end
   end
 end
