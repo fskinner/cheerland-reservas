@@ -5,7 +5,8 @@ defmodule CheerlandReservas.Reservations.Room do
   schema "rooms" do
     field(:max_beds, :integer)
     field(:label, :string)
-    field(:group, :integer)
+    field(:description, :string)
+    field(:group, :string)
     field(:women_only, :boolean, default: false)
     field(:photos_url, :string)
 
@@ -17,8 +18,8 @@ defmodule CheerlandReservas.Reservations.Room do
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:label, :max_beds, :women_only, :group, :photos_url])
-    |> validate_required([:label, :max_beds, :women_only, :group, :photos_url])
+    |> cast(attrs, [:label, :max_beds, :women_only, :group, :photos_url, :description])
+    |> validate_required([:label, :max_beds, :women_only, :group, :photos_url, :description])
     |> unique_constraint(:label)
   end
 end

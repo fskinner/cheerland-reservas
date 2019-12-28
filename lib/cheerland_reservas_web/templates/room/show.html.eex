@@ -1,4 +1,6 @@
 <h2><%= @room.label %></h2>
+<%= @room.description %>
+
 <hr>
   <div>
     <strong>Grupo:</strong>
@@ -29,7 +31,7 @@
 <% end %>
 <ul>
   <%= for user <- @room.users do %>
-    <li><%= user.name %></li>
+    <li><%= user.name %> <%= if user.allow_couple_bed, do: "(Cama de Casal)", else: "" %> </li>
   <% end %>
 </ul>
 

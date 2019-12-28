@@ -15,7 +15,9 @@ defmodule CheerlandReservas.Authentication.User do
     field(:return_time, :string)
     field(:is_admin, :boolean, default: false)
     field(:reserved_at, :date)
-    field(:allowed_group, :integer)
+    field(:allowed_group, :string)
+    field(:allow_couple_bed, :boolean, default: false)
+    field(:cancel_bus, :boolean, default: false)
 
     belongs_to(:room, Room)
 
@@ -36,7 +38,9 @@ defmodule CheerlandReservas.Authentication.User do
       :needs_transportation,
       :room_id,
       :is_admin,
-      :allowed_group
+      :allowed_group,
+      :allow_couple_bed,
+      :cancel_bus
     ])
     |> validate_required([
       :email,
@@ -63,7 +67,8 @@ defmodule CheerlandReservas.Authentication.User do
       :departure_location,
       :departure_time,
       :return_time,
-      :room_id
+      :room_id,
+      :cancel_bus
     ])
     |> assoc_constraint(:room)
   end

@@ -29,26 +29,30 @@
 <%= if @user.needs_transportation do %>
   <h3>Transporte</h3>
   <ul>
-    <li>
-      <strong>Local de saída:</strong>
-      <%= @user.departure_location %>
-    </li>
+    <%= if @user.cancel_bus do %>
+      Cancelou o onibus
+    <% else %>
+      <li>
+        <strong>Local de saída:</strong>
+        <%= @user.departure_location %>
+      </li>
 
-    <li>
-      <strong>Horário de Ida:</strong>
-      18h00
-    </li>
+      <li>
+        <strong>Horário de Ida:</strong>
+        18h00
+      </li>
 
-    <li>
-      <strong>Sugestão de Horário:</strong>
-      <%= @user.departure_time %>    
-    </li>
+      <li>
+        <strong>Sugestão de Horário:</strong>
+        <%= @user.departure_time %>    
+      </li>
 
 
-    <li>
-      <strong>Horário de Retorno:</strong>
-      <%= @user.return_time %>
-    </li>
+      <li>
+        <strong>Horário de Retorno:</strong>
+        <%= @user.return_time %>
+      </li>
+    <% end %>
   </ul>
 
 <span><%= link "Alterar dados de transporte", to: Routes.user_path(@conn, :edit, @user) %></span>

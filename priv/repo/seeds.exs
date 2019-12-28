@@ -11,7 +11,8 @@ CheerlandReservas.Authentication.create_user(%{
   password: "a12345A",
   gender: "Masculino",
   is_admin: true,
-  allowed_group: 1
+  allowed_group: "A",
+  allow_couple_bed: false
 })
 
 CheerlandReservas.Authentication.create_user(%{
@@ -20,7 +21,8 @@ CheerlandReservas.Authentication.create_user(%{
   password: "a12345A",
   gender: "Masculino",
   is_admin: true,
-  allowed_group: 2
+  allowed_group: "B",
+  allow_couple_bed: true
 })
 
 #

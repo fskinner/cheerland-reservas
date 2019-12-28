@@ -14,7 +14,9 @@ defmodule CheerlandReservas.Repo.Migrations.CreateUsers do
       add(:return_time, :string)
       add(:is_admin, :boolean, default: false, null: false)
       add(:room_id, references(:rooms, on_delete: :nothing))
-      add(:allowed_group, :integer)
+      add(:allowed_group, :string)
+      add(:cancel_bus, :boolean, default: false, null: false)
+      add(:allow_couple_bed, :boolean, default: false, null: false)
 
       timestamps()
     end

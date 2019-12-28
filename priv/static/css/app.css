@@ -679,3 +679,18 @@ header nav a {
   background-color: #7b0d31c7;
 }
 
+.text-small {
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+}
+
+.checkbox-align {
+  display: flex;
+  align-items: center;
+}
+
+#user_cancel_bus {
+  margin: 0 15px 5px 15px;
+}
+

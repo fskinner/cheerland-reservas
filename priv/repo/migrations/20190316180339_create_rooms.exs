@@ -4,9 +4,10 @@ defmodule CheerlandReservas.Repo.Migrations.CreateRooms do
   def change do
     create table(:rooms) do
       add(:label, :string)
+      add(:description, :string)
       add(:max_beds, :integer)
       add(:women_only, :boolean, default: false, null: false)
-      add(:group, :integer)
+      add(:group, :string)
       add(:photos_url, :string)
 
       timestamps()

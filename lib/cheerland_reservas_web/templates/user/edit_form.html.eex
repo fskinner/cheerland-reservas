@@ -5,29 +5,36 @@
     </div>
   <% end %>
 
+  <div class="checkbox-align">
+    <%= checkbox f, :cancel_bus %>
+    <%= label f, "Não usarei onibus" %>
+    <%= error_tag f, :cancel_bus %>
+  </div>
+
+
+  <hr/>
+
   <h2>Informações do Check-in (Ida)</h2>
   <%= label f, "Escolha seu local de saída:" %>
   <%= select(f, :departure_location, ["Aeroporto Santos Dumont": "Aeroporto Santos Dumont", "Praça General Osório (Ipanema)": "Praça General Osório (Ipanema)", "Niterói, posto Shell ao lado da Igreja Porciúncula": "Niterói, posto Shell ao lado da Igreja Porciúncula"]) %>
   <%= error_tag f, :departure_location %>
 
-  <div>
-    <h4>O horário de partida do seu ônibus será as <b>18h00</b>, no local indicado acima.</h4>
-  </div>
-  <br/>
-
-  <div>Deseja <b>sugerir</b> outro horário de partida para o ônibus? Sua sugestão será avaliada pela nossa equipe:</div>
-  <%= select(f, :departure_time, ["-": "", "17h00": "17h00", "17h30": "17h30", "19h00": "19h00", "19h30": "19h30"]) %>
+  <%= label f, "Escolha o horário de partida do seu ônibus:" %>
+  <div class="text-small">Horário dos ônibus está sujeito a lotação sob demanda </div>
+  <%= select(f, :departure_time, ["-": "", "09:00": "9h00", "12:00": "12h00", "14:00": "14h00", "18:00": "18h00"]) %>
   <%= error_tag f, :departure_time %>
 
   <hr>
 
   <h2>Informações do Check-out (Volta)</h2>
-  <span style="font-size: 14px"><i>* A volta do Hotel Fazenda até os pontos no Rio de Janeiro levam, em média, 2 horas.</i></span>
+  <span style="font-size: 14px"><i>* A volta do Cheerland até os pontos no Rio de Janeiro levam, em média, 2 horas.</i></span>
   <br/>
   <br/>
   <%= label f, "Escolha o horário de retorno do seu ônibus:" %>
-  <%= select(f, :return_time, ["13h30": "13h30", "19h00": "19h00"]) %>
+  <%= select(f, :return_time, ["13:30": "13h30", "19:00": "19h00"]) %>
   <%= error_tag f, :return_time %>
+
+
 
   <hr>
 
