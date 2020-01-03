@@ -1,6 +1,6 @@
 <div class="lista-quartos">
   <h2>Lista dos Quartos </h2>
-  <a href="http://www.cheerland.com.br" target="blank" class="button">Mapa dos quartos</a>
+  <a href="https://www.cheerland.com.br/mapaquarto.jpg" target="blank" class="button">Mapa dos quartos</a>
 </div>
 <table>
   <thead>
@@ -18,7 +18,7 @@
 <%= for room <- @rooms do %>
     <%= if room.women_only && @current_user.gender == "F" || !room.women_only || @current_user.is_admin do %>
         <%= if room.group == "A" do %>
-          <tr style="background: #e6e62d61">
+          <tr style="background: #00800087">
         <% else %>
           <%= if room.group == "B" do %>
             <tr style="background: #0057ff8a">
@@ -26,7 +26,7 @@
             <%= if room.group == "C" do %>
               <tr style="background: #ff00007a">
             <% else %>
-              <tr style="background: #00800087">
+              <tr>
             <% end %>
           <% end %>
         <% end %>

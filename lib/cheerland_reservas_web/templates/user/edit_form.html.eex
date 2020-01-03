@@ -19,7 +19,7 @@
   <%= select(f, :departure_location, ["Aeroporto Santos Dumont": "Aeroporto Santos Dumont", "Praça General Osório (Ipanema)": "Praça General Osório (Ipanema)", "Niterói, posto Shell ao lado da Igreja Porciúncula": "Niterói, posto Shell ao lado da Igreja Porciúncula"]) %>
   <%= error_tag f, :departure_location %>
 
-  <%= label f, "Escolha o horário de partida do seu ônibus:" %>
+  <%= label f, "Escolha o horário de partida do seu ônibus (*):" %>
   <div class="text-small">Horário dos ônibus está sujeito a lotação sob demanda </div>
   <%= select(f, :departure_time, ["-": "", "09:00": "9h00", "12:00": "12h00", "14:00": "14h00", "18:00": "18h00"]) %>
   <%= error_tag f, :departure_time %>
@@ -27,7 +27,7 @@
   <hr>
 
   <h2>Informações do Check-out (Volta)</h2>
-  <span style="font-size: 14px"><i>* A volta do Cheerland até os pontos no Rio de Janeiro levam, em média, 2 horas.</i></span>
+  <span class="text-small"><i>A volta do Cheerland até os pontos no Rio de Janeiro levam, em média, 2 horas.</i></span>
   <br/>
   <br/>
   <%= label f, "Escolha o horário de retorno do seu ônibus:" %>
@@ -40,5 +40,20 @@
 
   <div>
     <%= submit "Salvar" %>
+  </div>
+
+  <hr/>
+
+  <div class="text-small">
+    <p><strong>ATENÇÃO</strong>: Ao escolher o horário do transfer você estará informando o horário que mais
+      lhe agrada, que você pretende usar no Cheerland 2020.</p>
+
+    <p>Esse ainda não é o horário oficial, uma vez que precisamos conhecer o número exato de pessoas
+      interessadas em cada horário para fechar os ônibus. Sua reserva de transfer OFICIAL será feita mais
+      a frente, nos próximos meses.</p>
+
+    <p>As pessoas que dependem dessa informação para compra de passagens para o Rio de Janeiro,
+      aconselhamos virem o mais cedo possível e caso o seu horário escolhido para o transfer não confirme,
+      alocaremos para o horário mais próximo.</p>
   </div>
 <% end %>
