@@ -21,7 +21,7 @@
 
   <%= label f, "Escolha o horário de partida do seu ônibus (*):" %>
   <div class="text-small">Horário dos ônibus está sujeito a lotação sob demanda </div>
-  <%= select(f, :departure_time, ["-": "", "09:00": "9h00", "12:00": "12h00", "14:00": "14h00", "18:00": "18h00"]) %>
+  <%= select(f, :departure_time, ["-": "", "09:00": "9h00", "12:00": "12h00", "14:00": "14h00", "17:00": "17h00"]) %>
   <%= error_tag f, :departure_time %>
 
   <hr>
