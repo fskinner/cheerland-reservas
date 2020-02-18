@@ -147,7 +147,8 @@ defmodule CheerlandReservas.Reservations do
 
     with {:ok} <- check_user_reservation(user.room_id),
          {:ok} <- check_room_availability(room),
-         {:ok, _} <- Authentication.patch_update_user(user, %{room_id: id}) do
+         {:ok, _} <-
+           Authentication.patch_update_user(user, %{room_id: id, reserved_at: DateTime.utc_now()}) do
       {:ok}
     else
       {:error, payload} -> handle_error({:error, payload})

@@ -6,9 +6,23 @@ defmodule CheerlandReservas.ReservationsTest do
   describe "rooms" do
     alias CheerlandReservas.Reservations.Room
 
-    @valid_attrs %{max_beds: 42, label: "some label", women_only: true}
+    @valid_attrs %{
+      max_beds: 42,
+      label: "some label",
+      women_only: true,
+      description: "description",
+      photos_url: "none",
+      group: "A"
+    }
     @update_attrs %{max_beds: 43, label: "some updated label", women_only: false}
-    @invalid_attrs %{max_beds: nil, label: nil, women_only: nil}
+    @invalid_attrs %{
+      max_beds: nil,
+      label: nil,
+      women_only: nil,
+      description: nil,
+      photos_url: nil,
+      group: nil
+    }
 
     def room_fixture(attrs \\ %{}) do
       {:ok, room} =

@@ -74,7 +74,7 @@ defmodule CheerlandReservasWeb.UserController do
 
   defp parse_user(users) do
     headers = [
-      ~w(Nome Email Sexo Grupo Transporte LocalOnibus HorarioOnibus HorarioRetorno Quarto)
+      ~w(Nome Email Sexo Grupo Resevado Transporte LocalOnibus HorarioOnibus HorarioRetorno Quarto)
     ]
 
     parsed_users =
@@ -85,6 +85,7 @@ defmodule CheerlandReservasWeb.UserController do
           x.email,
           x.gender,
           x.allowed_group,
+          not is_nil(x.room_id),
           "#{x.needs_transportation}",
           x.departure_location || "-",
           x.departure_time || "-",
